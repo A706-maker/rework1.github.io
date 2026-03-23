@@ -56,7 +56,7 @@ footer {
 
 .homepage-banner {
   width: 100%;
-  height: 20vh; /* 20% of the screen height */
+  height: 40vh; /* 40% of the screen height */
   object-fit: cover; /* makes the image crop nicely */
   display: block;
   margin top: 20px;
