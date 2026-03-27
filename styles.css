@@ -230,6 +230,13 @@ footer {
     box-shadow: 0 6px 18px rgba(0,0,0,0.08);
 }
 
+.poll-button {
+  backgroud: #402b05
+  width: 50px;
+  height: 35px;
+  margin: center;
+}
+
   
   
   
