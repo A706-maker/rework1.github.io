@@ -231,10 +231,10 @@ footer {
 }
 
 .poll-button {
-  backgroud: #402b05;
+  backgroud: #4b71db;
   width: 150px;
   height: 75px;
-  margin: center;
+  text-align: center;
 }
 
   
