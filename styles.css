@@ -143,13 +143,13 @@ footer {
     border: none;
     border-radius: 6px;
     cursor: pointer;
-    background: #7A9EAF;
+    background: #F4F7FA;
     transition: 0.2s;
 }
 
 /* Hover effect */
 .poll-btn:hover {
-    background: #7A9EAF;
+    background: #F4F7FA;
 }
 
 /* Correct answer */
