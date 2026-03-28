@@ -24,12 +24,6 @@ nav a:hover {
   text-decoration: underline;
 }
 
-/* Page container */
-.container {
-  width: 90%;
-  margin: auto;
-  padding: 30px 0;
-}
 
 /* Headings*/
 h1, h2, h3, h4 {
