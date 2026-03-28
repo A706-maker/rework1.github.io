@@ -273,6 +273,11 @@ footer {
   align-self: center;
 }
 
+.content-section.reverse {
+  flex-direction: row-reverse;
+}
+
+
   
 
 
