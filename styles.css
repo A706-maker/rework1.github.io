@@ -47,6 +47,7 @@ h1, h2, h3, h4 {
 
 /* Footer */
 footer {
+  width: 100%;
   background: #2E3A45;
   color: white;
   text-align: left;
