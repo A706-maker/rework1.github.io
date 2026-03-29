@@ -1,108 +1,74 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Sydney Housing Watch</title>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Hero Section</title>
     <link rel="stylesheet" href="styles.css">
-  </head>
-  <body>
-    
-   <nav>
-     <a href="index.html">Home</a>
-     <a href="page1.html">Social Consequences</a>
-     <a href="page2.html">Economic Consequences</a>
-     <a href="page3.html">Market Rates</a>
-     <a href="page4.html">Solutions</a>
-   </nav>
-
-    <div class="center-section">
-      <h1>Sydney Housing Watch</h1>
-      <div class="card">
-        <p>Analyzing the impacts of the rising housing affordability rates in Sydney</p>
-
-        <!-- Full-width banner image -->
-        <img src="Indexpageheader.png" alt="Homepage Banner" class="homepage-banner">
-      </div>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.5)), url('background.jpg');
+            background-size: cover;
+            animation: backgroundAnimation 10s infinite alternate;
+        }
+        @keyframes backgroundAnimation {
+            0% { background-position: left; }
+            100% { background-position: right; }
+        }
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            margin: 20px;
+            padding: 20px;
+            transition: transform 0.3s;
+        }
+        .glass-card:hover {
+            transform: scale(1.05);
+        }
+        .stat-card {
+            margin: 10px;
+            padding: 15px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            animation: fadeIn 0.5s forwards;
+        }
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+        .contact-form {
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <div class="glass-card">
+            <h1>Welcome to Our Housing Crisis Awareness!</h1>
+            <p>Join us in addressing the housing challenges.</p>
+        </div>
+        <div class="stat-card" style="animation-delay: 0.2s;">Stat 1: 1000 Homes Lost.</div>
+        <div class="stat-card" style="animation-delay: 0.4s;">Stat 2: 5000 People Displaced.</div>
+        <div class="stat-card" style="animation-delay: 0.6s;">Stat 3: 3000 Families Affected.</div>
+        <form class="contact-form" method="POST" action="https://script.google.com/macros/s/YOUR_GOOGLE_SCRIPT_URL/exec">
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="email" name="email" placeholder="Your Email" required>
+            <textarea name="message" placeholder="Your Message" required></textarea>
+            <button type="submit">Send</button>
+        </form>
     </div>
-
-    <div class="center-section">
-      <h1>Our Research Focus</h1>
-    </div>
-    
-    <div class="image-grid">
-      <a href="page1.html" class="grid-item">
-        <img src="Socialconsequences_button.png" alt="Image 1">
-      </a>
-
-      <a href="page2.html" class="grid-item">
-        <img src="Economicconsequences_button.png" alt="Image 2">
-      </a>
-
-      <a href="page3.html" class="grid-item">
-        <img src="Marketrates_button.png" alt="Image 3">
-      </a>
-
-      <a href="page4.html" class="grid-item">
-        <img src="Proposedsolutions_button.png" alt="Image 4">
-      </a>
-
-    </div>
-
-    <div class="container">
-      <button class="poll-button" onclick="window.location.href='poll.html' ">
-       Take the poll
-      </button>
-    </div>
- </div>
-
-    <div class="contact-section">
-      <h2>Contact Us!</h2>
-
-    <form id="contactForm">
-
-      <label for="firstname">First Name</label>
-      <input type="text" id="firstname" name="firstname" required>
-
-      <label for="lastname">Last Name</label>
-      <input type="text" id="lastname" name="lastname" required>
-
-      <label for="youremail">Your Email</label>
-      <input type="email" id="youremail" name="youremail">
-
-      <label for="message">What would you like to say?</label>
-      <textarea id="message" name="message" rows="5" ></textarea>
-
-      <button type="submit">Submit</button>
-    </form>
-    </div>
-
- <script>
-document.getElementById("contactForm").addEventListener("submit", async (e) => {
-  e.preventDefault();
-
-  const data = Object.fromEntries(new FormData(e.target).entries());
-
-  try {
-    const response = await fetch("https://script.google.com/macros/s/AKfycbz1-TjkXgBh6Ni67Duhh07azdpFoMsFXYz7ciDfGjjhHL1nb2GHGBRF_Sk2AIohkRL9/exec", {
-      method: "POST",
-      mode: "no-cors",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(data)
-    });
-
-    alert("Submitted!");
-    document.getElementById("contactForm").reset();
-  } catch (error) {
-    console.error("Error:", error);
-    alert("There was an error submitting the form. Please try again.");
-  }
-});
-</script>
-   
-      <footer>
-        © 2026 Sydney Housing Watch Research Foundation. All rights reserved.
-      </footer>
-      
-  </body>
+</body>
 </html>
