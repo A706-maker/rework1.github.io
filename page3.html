@@ -30,6 +30,148 @@
           </div>
         </div>
 
+        <!-- Chart.js CDN -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"
+                integrity="sha384-OLBgp1GsljhM2TJ+sbHjaiH9txEUvgdDTAzHv2P24donTt6/529l+9Ua0vFImLlb"
+                crossorigin="anonymous"></script>
+
+        <!-- 10-Year Projection Section -->
+        <div class="container" id="projection-section">
+          <h2>10-Year Projection &middot; 2025&ndash;2035</h2>
+          <h3 style="color:#5C738A; margin-top:0;">Where is Sydney headed?</h3>
+
+          <!-- Chart card -->
+          <div class="card" style="padding:24px;">
+            <canvas id="projectionChart" height="100"></canvas>
+          </div>
+
+          <!-- Forecast cards -->
+          <div style="display:flex; flex-wrap:wrap; gap:16px; margin-top:20px;">
+
+            <div class="card" style="flex:1; min-width:200px; border-left:4px solid #4A90E2; padding:20px;">
+              <h4 style="margin:0 0 8px; color:#4A90E2;">Domain</h4>
+              <p style="margin:0; font-size:1.4rem; font-weight:bold;">+7% houses</p>
+              <p style="margin:4px 0 0; font-size:1.1rem;">+6% units</p>
+              <p style="margin:8px 0 0; color:#666; font-size:0.9rem;">FY2025&ndash;26 forecast</p>
+            </div>
+
+            <div class="card" style="flex:1; min-width:200px; border-left:4px solid #27AE60; padding:20px;">
+              <h4 style="margin:0 0 8px; color:#27AE60;">CoreLogic</h4>
+              <p style="margin:0; font-size:1.4rem; font-weight:bold;">$1,621,930</p>
+              <p style="margin:8px 0 0; color:#666; font-size:0.9rem;">Sydney median by June 2026</p>
+            </div>
+
+            <div class="card" style="flex:1; min-width:200px; border-left:4px solid #E67E22; padding:20px;">
+              <h4 style="margin:0 0 8px; color:#E67E22;">Oxford Economics</h4>
+              <p style="margin:0; font-size:1.4rem; font-weight:bold;">+23.4% units</p>
+              <p style="margin:8px 0 0; color:#666; font-size:0.9rem;">Through June 2026</p>
+            </div>
+
+          </div>
+
+          <!-- Population pressure callout -->
+          <div style="background:#EBF3FB; border-left:5px solid #4A90E2; border-radius:6px; padding:20px; margin-top:20px;">
+            <h4 style="margin:0 0 8px; color:#010921;">&#128308; Population Pressure</h4>
+            <p style="margin:0;">Sydney will gain <strong>650,000 more people by 2034</strong> &mdash; part of 1 million additional Australians nationally. Yet the city is building only ~30,000 homes per year against a demand of <strong>60,000+</strong>, meaning the supply gap will keep driving prices upward through the decade.</p>
+          </div>
+        </div>
+
+        <script>
+          (function () {
+            var labels = ['2020','2021','2022','2023','2024','2025','2026','2027','2028','2029','2030','2031','2032','2033','2034','2035'];
+            // Values are in thousands of AUD (e.g. 1751 = $1,751,000)
+            var actualData   = [1100, 1200, 1400, 1350, 1380, 1751, null, null, null, null, null, null, null, null, null, null];
+            var projectedData = [null, null, null, null, null, 1751, 2000, 2140, 2250, 2380, 2520, 2640, 2760, 2890, 3020, 3200];
+
+            var ctx = document.getElementById('projectionChart').getContext('2d');
+            new Chart(ctx, {
+              type: 'line',
+              data: {
+                labels: labels,
+                datasets: [
+                  {
+                    label: 'Actual Price (AUD)',
+                    data: actualData,
+                    borderColor: '#4A90E2',
+                    backgroundColor: 'rgba(74,144,226,0.12)',
+                    borderWidth: 2.5,
+                    pointRadius: 4,
+                    pointHoverRadius: 6,
+                    tension: 0.3,
+                    fill: true,
+                    spanGaps: false
+                  },
+                  {
+                    label: 'Projected Price (AUD)',
+                    data: projectedData,
+                    borderColor: '#E67E22',
+                    backgroundColor: 'rgba(230,126,34,0.08)',
+                    borderWidth: 2.5,
+                    borderDash: [6, 4],
+                    pointRadius: 4,
+                    pointHoverRadius: 6,
+                    tension: 0.3,
+                    fill: true,
+                    spanGaps: false
+                  }
+                ]
+              },
+              options: {
+                responsive: true,
+                interaction: { mode: 'index', intersect: false },
+                plugins: {
+                  legend: { position: 'top' },
+                  tooltip: {
+                    callbacks: {
+                      label: function (ctx) {
+                        if (ctx.parsed.y === null) return null;
+                        return ctx.dataset.label + ': $' + (ctx.parsed.y / 1000).toFixed(3) + 'M AUD';
+                      }
+                    }
+                  },
+                  annotation: {}
+                },
+                scales: {
+                  y: {
+                    min: 800,
+                    ticks: {
+                      callback: function (value) {
+                        return '$' + (value / 1000).toFixed(1) + 'M';
+                      }
+                    },
+                    title: { display: true, text: 'Median Price (AUD)' }
+                  },
+                  x: {
+                    title: { display: true, text: 'Year' }
+                  }
+                }
+              },
+              plugins: [{
+                id: 'referenceLine',
+                afterDraw: function (chart) {
+                  var yScale = chart.scales.y;
+                  var xScale = chart.scales.x;
+                  if (!yScale || !xScale) return;
+                  var y = yScale.getPixelForValue(2000);
+                  var ctx2 = chart.ctx;
+                  ctx2.save();
+                  ctx2.beginPath();
+                  ctx2.moveTo(xScale.left, y);
+                  ctx2.lineTo(xScale.right, y);
+                  ctx2.strokeStyle = 'rgba(231,76,60,0.7)';
+                  ctx2.lineWidth = 1.5;
+                  ctx2.setLineDash([5, 5]);
+                  ctx2.stroke();
+                  ctx2.fillStyle = 'rgba(231,76,60,0.85)';
+                  ctx2.font = '12px Arial';
+                  ctx2.fillText('$2M milestone', xScale.right - 100, y - 6);
+                  ctx2.restore();
+                }
+              }]
+            });
+          })();
+        </script>
+
         <div class="container">
           <h2>Future Predictions</h2>
           <div class="card">
